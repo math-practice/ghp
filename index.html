@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Genesis House Projection</title>
+  <style>
+    body {
+      margin: 0; padding: 0; background: #000;
+    }
+    /*.content {
+      position: absolute;
+      left: 50vw;
+      top: 50vh;
+      width:       75vw;
+      height:      calc(75vw * 9/16);
+      margin-left: calc(-75vw / 2);
+      margin-top:  calc(-75vw * 9/16 / 2);
+    }
+    .content video {
+      display: block;
+      width: 100%;
+    }
+    .content:before, .overlay {
+      content: '';
+      position: absolute;
+      background: rgba(66, 255, 0, 0.9);
+      border-radius: 100%;
+      margin-left: calc((75vw - 75vw * 9/16) / 2 * 1.05);
+      margin-top: calc(75vw * 9/16 * 0.05 / 2);
+      width:       calc(75vw * 9/16 * 0.95);
+      height:      calc(75vw * 9/16 * 0.95);
+      mix-blend-mode: hard-light;
+      filter: blur(2px);
+    }
+    .overlay {
+      z-index: 30000;
+    }*/
+    video, .overlay, .cursor {
+      position: absolute;
+      left: 50vw;
+      top: 50vh;
+    }
+    video {
+      display: block;
+      width:       75vw;
+      height:      calc(75vw * 9/16);
+      margin-left: calc(-75vw / 2);
+      margin-top:  calc(-75vw * 9/16 / 2);
+    }
+    .overlay {
+      width:       calc(75vw * 9/16 * 0.95);
+      height:      calc(75vw * 9/16 * 0.95);
+      margin-left: calc(-75vw * 9/16 / 2 * 0.95);
+      margin-top:  calc(-75vw * 9/16 / 2 * 0.95);
+      z-index: 30000;
+      border-radius: 100%;
+      filter: blur(2px);
+      mix-blend-mode: hard-light;
+      background-image: url(mask.png);
+      background-size: 200%;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .hue {
+      -webkit-animation: hue 10s infinite;
+    }
+    @-webkit-keyframes hue {
+      0%, 100%  { -webkit-filter: hue-rotate(0deg); }
+      50% { -webkit-filter: hue-rotate(50deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- <div class="cursor"></div> -->
+  <div class="overlay hue" id="module"></div>
+  <video autoplay muted loop>
+    <source src="_VIDEO_3.mp4" type="video/mp4">
+  </video>
+  <svg width="100%" height="100%">
+  <defs>
+    <clipPath id="myClip">
+      <circle cx="100" cy="100" r="40"/>
+      <circle cx="60" cy="60" r="40"/>
+    </clipPath>
+  </defs>
+</svg>
+<script>
+  const el = document.querySelector("#module");
+  el.addEventListener("mousemove", (e) => {
+    var size = el.offsetHeight;
+    var bgsize = (1 - e.offsetY / size) * 200 + 200;
+    var bgfactor = (1 - e.offsetY / size); 
+    el.style.backgroundSize = bgsize + "%";
+    el.style.backgroundPositionX = "-" + (e.offsetX + bgfactor * size) + "px";
+    el.style.backgroundPositionY = "-" + (e.offsetY + bgfactor * size) + "px";
+    console.log(size + ":" + bgfactor * size / 2);
+  });
+</script>
+</body>
+</html>
