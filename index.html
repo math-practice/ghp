@@ -3,39 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Genesis House Projection</title>
+  <title>GH Projection</title>
   <style>
     body {
       margin: 0; padding: 0; background: #000;
     }
-    /*.content {
-      position: absolute;
-      left: 50vw;
-      top: 50vh;
-      width:       75vw;
-      height:      calc(75vw * 9/16);
-      margin-left: calc(-75vw / 2);
-      margin-top:  calc(-75vw * 9/16 / 2);
-    }
-    .content video {
-      display: block;
-      width: 100%;
-    }
-    .content:before, .overlay {
-      content: '';
-      position: absolute;
-      background: rgba(66, 255, 0, 0.9);
-      border-radius: 100%;
-      margin-left: calc((75vw - 75vw * 9/16) / 2 * 1.05);
-      margin-top: calc(75vw * 9/16 * 0.05 / 2);
-      width:       calc(75vw * 9/16 * 0.95);
-      height:      calc(75vw * 9/16 * 0.95);
-      mix-blend-mode: hard-light;
-      filter: blur(2px);
-    }
-    .overlay {
-      z-index: 30000;
-    }*/
     video, .overlay, .cursor {
       position: absolute;
       left: 50vw;
@@ -61,6 +33,7 @@
       background-size: 200%;
       background-repeat: no-repeat;
       background-position: center;
+      opacity: 1;
     }
     .hue {
       -webkit-animation: hue 10s infinite;
@@ -72,10 +45,9 @@
   </style>
 </head>
 <body>
-  <!-- <div class="cursor"></div> -->
-  <div class="overlay hue" id="module"></div>
-  <video autoplay muted loop>
-    <source src="_VIDEO_3.mp4" type="video/mp4">
+  <div id="overlay" class="overlay hue" id="module"></div>
+  <video id="video" autoplay muted loop preload>
+    <source src="video.mp4" type="video/mp4">
   </video>
   <svg width="100%" height="100%">
   <defs>
@@ -96,6 +68,7 @@
     el.style.backgroundPositionY = "-" + (e.offsetY + bgfactor * size) + "px";
     console.log(size + ":" + bgfactor * size / 2);
   });
+  const vid = document.querySelector("#video");
 </script>
 </body>
 </html>
